@@ -36,4 +36,4 @@ jobs:
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v6
         with:
-          version: ${GOLANGCI_LINT_VERSION}
+          version: "${{ env.GOLANGCI_LINT_VERSION }}"
