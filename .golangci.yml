@@ -18,9 +18,6 @@ linters-settings:
   goconst:
     min-len: 3
     min-occurrences: 3
-  gomoddirectives:
-    replace-allow-list:
-      - github.com/imdario/mergo
   misspell:
     locale: US
   funlen:
