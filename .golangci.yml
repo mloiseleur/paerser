@@ -1,11 +1,14 @@
 run:
   timeout: 2m
-  skip-files:
-    - ^unsecured/
 
 linters-settings:
+  depguard:
+    rules:
+      main:
+        deny:
+          - pkg: "github.com/pkg/errors"
+            desc: Should be replaced by standard lib errors package
   govet:
-    check-shadowing: true
     enable-all: true
     disable:
       - fieldalignment
@@ -15,8 +18,19 @@ linters-settings:
   goconst:
     min-len: 3
     min-occurrences: 3
+  gomoddirectives:
+    replace-allow-list:
+      - github.com/imdario/mergo
   misspell:
     locale: US
+  mnd:
+    # List of enabled checks, see https://github.com/tommy-muehle/go-mnd/#checks for description.
+    checks:
+      - case
+      - condition
+      - operation
+      - return
+      - assign
   funlen:
     lines: -1
     statements: 80 # default 40
@@ -31,24 +45,15 @@ linters-settings:
 linters:
   enable-all: true
   disable:
-    - maligned # Deprecated
-    - scopelint # Deprecated
-    - golint # Deprecated
-    - interfacer # Deprecated
-    - exhaustivestruct # Deprecated
-    - ifshort # Deprecated
-    - varcheck # Deprecated
-    - deadcode # Deprecated
-    - structcheck # Deprecated
-    - nosnakecase # Deprecated
+    - execinquery # Deprecated
+    - gomnd # Deprecated
     - cyclop # duplicate of gocyclo
     - rowserrcheck # SQL
     - sqlclosecheck # SQL
     - dupl
     - lll
     - nestif
-    - gomnd
-    - goerr113
+    - err113
     - wrapcheck
     - nlreturn
     - wsl
@@ -62,7 +67,6 @@ linters:
 
 issues:
   exclude-use-default: false
-  max-per-linter: 0
   max-same-issues: 0
   exclude:
     - 'ST1000: at least one file in a package should have a package comment'
@@ -74,3 +78,6 @@ issues:
         - goconst
         - gosec
         - maintidx
+    - path: 'parser/element_fill.go'
+      linters:
+        - mnd
