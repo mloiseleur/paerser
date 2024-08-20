@@ -74,7 +74,7 @@ func getFieldNames(rootType reflect.Type) []string {
 		return nil
 	}
 
-	names := make([]string, 0, rootType.NumField())
+	var names []string
 	for i := range rootType.NumField() {
 		field := rootType.Field(i)
 

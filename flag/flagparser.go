@@ -52,7 +52,7 @@ func (f *flagSet) parseOne() (bool, error) {
 	numMinuses := 1
 	if s[1] == '-' {
 		numMinuses++
-		if s == "--" { // "--" terminates the flags
+		if len(s) == 2 { // "--" terminates the flags
 			f.args = f.args[1:]
 			return false, nil
 		}
